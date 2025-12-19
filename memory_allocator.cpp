@@ -66,6 +66,7 @@ bool free_sim(int fid){
         if(curr->id==fid){
             curr->id=-1;
             curr->free=true;
+            coalesce();
             return true;
         }
         curr=curr->next;
@@ -75,14 +76,33 @@ bool free_sim(int fid){
 
 }
 int main(){
-    init_memory(100);
-    print_memory();
 
-    int a = malloc_sim(40);
-    cout << "allocated id = " << a << endl;
-    print_memory();
+    string cmd;
+   
+    while(true){
+         cin>>cmd;
 
-    int b = malloc_sim(30);
-    cout << "allocated id = " << b << endl;
-    print_memory();
+         if(cmd=="init"){
+            int n;cin>>n;
+            init_memory(n);
+         }
+         else if(cmd=="malloc"){
+            int n;cin>>n;
+           int id= malloc_sim(n);
+            if(id==-1) cout<<"Allocation unsuccesful"<<endl;
+            else cout<<"Allocated id= "<<id<<endl;
+         }
+        else  if(cmd=="free"){
+            int n;cin>>n;
+            free_sim(n);
+         }
+         else if(cmd=="print"){
+            print_memory();
+         }
+         else if(cmd=="exit"){
+            break;
+         }
+         else cout<<"Unknown Command"<<endl;
+         
+    }
 }
