@@ -2,6 +2,8 @@
 using namespace std;
 
 string curr_fit="first";
+int total_mem=0;
+
 struct Block {
     int start;
     int size;
@@ -28,7 +30,35 @@ void print_memory(){
 }
 }
 void init_memory(int n){
+    total_mem=n;
    head=new Block{0,n,-1,true,nullptr};
+}
+void show_stats(){
+     if(!head){
+    cout<<"Memory not initialized\n";
+    return;
+     }
+
+    Block* curr=head;
+    int used=0,free=0,lar=0;
+    while(curr){
+        if(curr->free==true){
+           
+            free+=curr->size;
+            lar=max(lar,curr->size);
+        }
+        else if(curr->free==false){
+            
+            used+=curr->size;
+        }
+        curr=curr->next;
+    }
+    float f=(float(lar)/float(free));
+    cout<<"Total memory : "<<total_mem<<endl;
+    cout<<"used memory : "<<used<<endl;
+    cout<<"External Fragmentation : "<<(1-f)*100<<"%"<<endl;
+    
+    
 }
 int malloc_sim(int s){
     Block* curr=head;
@@ -157,8 +187,9 @@ int main(){
          cin>>cmd;
 
          if(cmd=="init"){
-            int n;cin>>n;
-            init_memory(n);
+            cin>>total_mem;
+            init_memory(total_mem);
+            cout<<"Memory Initialized"<<endl;
          }
          else if(cmd=="malloc"){
             int n;cin>>n;
@@ -169,7 +200,7 @@ int main(){
         else  if(cmd=="free"){
             int n;cin>>n;
             bool b=free_sim(n);
-            if(b) cout<<"Block "<<n<<"freed and merged"<<endl;
+            if(b) cout<<"Block "<<n<<" freed and merged"<<endl;
             else cout<<"enter valid id"<<endl;
          }
          else if(cmd=="print"){
@@ -177,6 +208,9 @@ int main(){
          }
          else if(cmd=="exit"){
             break;
+         }
+         else if(cmd=="stats"){
+            show_stats();
          }
          else if(cmd=="set"){
             string s;cin>>s;
