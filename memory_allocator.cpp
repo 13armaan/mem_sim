@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+string curr_fit="first";
 struct Block {
     int start;
     int size;
@@ -11,6 +12,12 @@ struct Block {
 Block* head=nullptr;
 int gid=1;
 void print_memory(){
+    
+    if(!head){
+    cout<<"Memory not initialized\n";
+    return;
+}
+
     Block* curr=head;
     while(curr){
     cout<<"["<<curr->start<<","<<curr->start+curr->size-1<<"] ";
@@ -25,6 +32,8 @@ void init_memory(int n){
 }
 int malloc_sim(int s){
     Block* curr=head;
+    if(curr_fit=="first"){
+    curr=head;
     while(curr){
         if(curr->free && curr->size>=s){
         if(curr->size>s) {
@@ -45,6 +54,71 @@ int malloc_sim(int s){
    
     }
     return -1;
+    }
+    else if(curr_fit=="best"){
+        curr=head;
+        Block* best=nullptr;
+        while(curr){
+        if(curr->free && curr->size>=s){
+            if(best==nullptr) best=curr;
+            else{
+                if(best->size>curr->size) best=curr;
+            }
+        }
+        curr=curr->next;
+        }
+       if(best!=nullptr){
+        if(best->size>s){
+            Block* temp=new Block;
+            temp->start=best->start+s;
+            temp->size=best->size-s;
+            temp->free=true;
+            temp->next=best->next;
+            temp->id=-1;
+            best->next=temp;
+            best->size=s;
+        }
+            best->free=false;
+            best->id=gid++;
+            return best->id;
+       }
+       
+   
+    
+    return -1;
+    }
+    else if(curr_fit=="worst"){
+        curr=head;
+        Block* worst=nullptr;
+        while(curr){
+        if(curr->free && curr->size>=s){
+            if(worst==nullptr) worst=curr;
+            else{
+                if(worst->size<curr->size) worst=curr;
+            }
+        }
+        curr=curr->next;
+        }
+       if(worst!=nullptr){
+        if(worst->size>s){
+            Block* temp=new Block;
+            temp->start=worst->start+s;
+            temp->size=worst->size-s;
+            temp->free=true;
+            temp->next=worst->next;
+            temp->id=-1;
+            worst->next=temp;
+            worst->size=s;
+        }
+            worst->free=false;
+            worst->id=gid++;
+            return worst->id;
+       }
+       
+   
+    
+    return -1;
+    }
 }
 void coalesce(){
     Block* curr=head;
@@ -94,13 +168,20 @@ int main(){
          }
         else  if(cmd=="free"){
             int n;cin>>n;
-            free_sim(n);
+            bool b=free_sim(n);
+            if(b) cout<<"Block "<<n<<"freed and merged"<<endl;
+            else cout<<"enter valid id"<<endl;
          }
          else if(cmd=="print"){
             print_memory();
          }
          else if(cmd=="exit"){
             break;
+         }
+         else if(cmd=="set"){
+            string s;cin>>s;
+            if(s=="first"||s=="worst"||s=="best") curr_fit=s;
+            else cout<<"Invalid strategy"<<endl;
          }
          else cout<<"Unknown Command"<<endl;
          
