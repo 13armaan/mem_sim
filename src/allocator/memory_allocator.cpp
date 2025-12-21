@@ -150,6 +150,8 @@ int malloc_sim(int s){
     
     return -1;
     }
+    return -1;
+
 }
 void coalesce(){
     Block* curr=head;
