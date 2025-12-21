@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include "cache/cache.h"
 using namespace std;
 
 struct Cache_line{
@@ -119,18 +120,4 @@ void access_add(int add){
     L2.insert(add);
     L1.insert(add);
 }
-}
-int main(){
-
-   
-    cout << "Sets: " << L1.num_sets << endl;
-
-    cout << "Addr 0  -> set " << L1.get_set_i(0)
-         << " tag " << L1.get_tag(0) << endl;
-
-    cout << "Addr 8  -> set " << L1.get_set_i(8)
-         << " tag " << L1.get_tag(8) << endl;
-
-    cout << "Addr 16 -> set " << L1.get_set_i(16)
-         << " tag " << L1.get_tag(16) << endl;
 }

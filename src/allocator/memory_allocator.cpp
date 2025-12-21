@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include "allocator/allocator.h"
 using namespace std;
 
 string curr_fit="first";
@@ -178,46 +179,4 @@ bool free_sim(int fid){
     cout<<-1<<endl;
     return false;
 
-}
-int main(){
-
-    string cmd;
-   
-    while(true){
-         cin>>cmd;
-
-         if(cmd=="init"){
-            cin>>total_mem;
-            init_memory(total_mem);
-            cout<<"Memory Initialized"<<endl;
-         }
-         else if(cmd=="malloc"){
-            int n;cin>>n;
-           int id= malloc_sim(n);
-            if(id==-1) cout<<"Allocation unsuccesful"<<endl;
-            else cout<<"Allocated id= "<<id<<endl;
-         }
-        else  if(cmd=="free"){
-            int n;cin>>n;
-            bool b=free_sim(n);
-            if(b) cout<<"Block "<<n<<" freed and merged"<<endl;
-            else cout<<"enter valid id"<<endl;
-         }
-         else if(cmd=="print"){
-            print_memory();
-         }
-         else if(cmd=="exit"){
-            break;
-         }
-         else if(cmd=="stats"){
-            show_stats();
-         }
-         else if(cmd=="set"){
-            string s;cin>>s;
-            if(s=="first"||s=="worst"||s=="best") curr_fit=s;
-            else cout<<"Invalid strategy"<<endl;
-         }
-         else cout<<"Unknown Command"<<endl;
-         
-    }
 }
