@@ -209,6 +209,18 @@ Hit Ratio = hits / (hits + misses)
 
 These statistics allow observation of cache effectiveness and comparison of access behavior across cache levels.
 
+---
+
+## 12. Limitations
+
+The following features are **intentionally not implemented**, as they are marked optional or out of scope in the project specification:
+
+- Virtual memory and paging
+- Buddy memory allocation system
+- Cache miss latency modeled in CPU cycles
+- Multi-process or multi-threaded simulation
+
+The project focuses on **correctness, modularity, and clarity** rather than exhaustive feature coverage.
 
 ---
 
@@ -222,3 +234,4 @@ This project implements a minimal yet accurate simulation of key operating syste
 - Modular system design with driver-based integration
 
 The simulator adheres to the required project specifications and provides a clear, extensible foundation for further enhancements.
+
