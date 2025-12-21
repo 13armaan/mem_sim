@@ -7,7 +7,6 @@ struct Cache_line{
     int time;
 };
 
-Cache_line* head =nullptr;
 class Cache{
     public:
     int cache_size;
@@ -32,7 +31,7 @@ class Cache{
         int block_a=address/block_size;
         return block_a/num_sets;
     }
-    Cache_line* access(int add){
+  bool access(int add){
     int ind=get_set_i(add);
     int taga=get_tag(add);
     global_time++;
@@ -41,21 +40,25 @@ class Cache{
         cout<<"hit"<<endl;
         hits++;
         sets[ind][i].time=global_time;
-        return &sets[ind][i];
+        return true;
         }
-        else{
-           
-
-        }
+      
    }
     cout<<"miss"<<endl;
     misses++;
-    for(int i=0;i<associativity;i++){
+    
+    return false;
+}
+    void insert(int add){
+        global_time++;
+        int ind=get_set_i(add);
+         int taga=get_tag(add);
+        for(int i=0;i<associativity;i++){
         if(!sets[ind][i].valid){
           sets[ind][i].tag=taga;
           sets[ind][i].valid=true;
           sets[ind][i].time=global_time;
-          return &sets[ind][i]; 
+          return;
         }  
     }
     int min_t=INT_MAX;
@@ -67,11 +70,10 @@ class Cache{
             sets[ind][i].tag=taga;
             sets[ind][i].time=global_time;
             sets[ind][i].valid=true;
-             return &sets[ind][i];
+             return;
         } 
     }
-    return nullptr;
-}\
+    }
 };
 
 Cache:: Cache(int cs,int bs,int assoc){
@@ -96,10 +98,22 @@ Cache:: Cache(int cs,int bs,int assoc){
     hits=0;
     misses=0;
 }
+ Cache L1(64,8,2);
+    Cache L2(256,8,4);
 
+void access_add(int add){
+    if(L1.access(add)) return;
+    if(L2.access(add)) {
+        L1.insert(add);
+    }
+    else{
+    L2.insert(add);
+    L1.insert(add);
+}
+}
 int main(){
 
-    Cache L1(64,8,2);
+   
     cout << "Sets: " << L1.num_sets << endl;
 
     cout << "Addr 0  -> set " << L1.get_set_i(0)
