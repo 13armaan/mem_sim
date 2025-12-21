@@ -6,7 +6,7 @@ struct Cache_line{
     int tag;
     int time;
 };
-
+int cache_miss=0;
 class Cache{
     public:
     int cache_size;
@@ -18,6 +18,7 @@ class Cache{
 
     int hits;
     int misses;
+    
 
     vector<vector<Cache_line>> sets;
 
@@ -39,7 +40,7 @@ class Cache{
     if(sets[ind][i].tag==taga && sets[ind][i].valid ){
         cout<<"hit"<<endl;
         hits++;
-        sets[ind][i].time=global_time;
+       /// sets[ind][i].time=global_time;  it can be toggled on for LRU 
         return true;
         }
       
@@ -74,6 +75,13 @@ class Cache{
         } 
     }
     }
+    void print_stats(){
+        cout<<"Hits: "<<hits<<endl;
+        cout<<"Misses: "<<misses<<endl;
+        if(hits || misses)cout<<"Hit Ratio: "<<float(hits)/float(hits+misses)<<endl;
+        else cout<<"Hit Ratio: "<<"not defined"<<endl;
+        cout<<"Cache Miss Penalty: "<<cache_miss<<endl;
+    }
 };
 
 Cache:: Cache(int cs,int bs,int assoc){
@@ -107,6 +115,7 @@ void access_add(int add){
         L1.insert(add);
     }
     else{
+        cache_miss++;
     L2.insert(add);
     L1.insert(add);
 }
