@@ -50,7 +50,13 @@ mem_sim/
 Each subsystem is implemented independently and integrated at the driver level (`main.cpp`).
 
 ---
+## Demonstration
 
+![Memory Management Simulator Demo](https://user-images.githubusercontent.com/87287203/215331246-0a4d8986-8d67-4d22-b84f-3a9d85cc5f46.png)
+
+▶️ [Watch the demo video](https://github.com/user-attachments/assets/88f5aaf9-ed25-4312-9170-8d0a31f43729)
+
+---
 ## 3. Physical Memory Simulation
 
 Physical memory is simulated as a **contiguous address space** using a **linked list of memory blocks**.
