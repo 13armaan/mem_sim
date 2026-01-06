@@ -14,6 +14,17 @@ This project implements a **user-space memory management simulator** that models
 The simulator is **not an operating system**, but a faithful simulation using well-defined data structures and algorithms, following the given project specification.
 
 ---
+## Command Interface
+
+The simulator provides a CLI-based interface to interact with memory and cache simulation.
+
+Supported commands:
+- init <size>        : Initialize physical memory
+- malloc <size>      : Allocate a memory block
+- free <block_id>    : Free an allocated block
+- print              : Display memory layout
+- stats              : Display memory statistics
+- exit               : Exit simulator
 
 ## 2. Project Structure
 

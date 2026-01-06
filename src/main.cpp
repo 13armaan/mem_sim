@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
     string cmd;
-
+    cout<<"Welcome To Memory Simulator"<<endl;
     while (true) {
         cin >> cmd;
 
@@ -34,9 +34,17 @@ int main() {
         else if (cmd == "stats") {
             show_stats();
         }
+         else if (cmd == "cache_stats") {
+    cout << "L1 Cache:\n";
+    L1.print_stats();
+    cout << "\nL2 Cache:\n";
+    L2.print_stats();
+}
         else if (cmd == "exit") {
             break;
         }
+     
+
         else {
             cout << "Unknown command\n";
         }

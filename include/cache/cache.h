@@ -35,5 +35,8 @@ private:
 };
 
 void access_add(int address);
+extern Cache L1;
+extern Cache L2;
+
 
 #endif
