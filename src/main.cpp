@@ -2,6 +2,7 @@
 #include "allocator/allocator.h"
 #include "cache/cache.h"
 using namespace std;
+extern string curr_fit;
 
 int main() {
     string cmd;
@@ -39,7 +40,20 @@ int main() {
     L1.print_stats();
     cout << "\nL2 Cache:\n";
     L2.print_stats();
+
 }
+else if (cmd == "set") {
+    string type;
+    cin >> type;
+
+    if (type == "first" || type == "best" || type == "worst") {
+        curr_fit = type;
+        cout << "Allocation strategy set to " << type << "\n";
+    } else {
+        cout << "Invalid allocation strategy\n";
+    }
+}
+
         else if (cmd == "exit") {
             break;
         }
