@@ -53,7 +53,7 @@ Each subsystem is implemented independently and integrated at the driver level (
 ## Demonstration
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e3e9a9de-9fa8-45fc-9fef-7c59f7e42b93" />
-[demo_video](https://github.com/user-attachments/assets/9d9ca01a-3f1b-41ea-891f-6882452ac405)
+[demo_video](https://drive.google.com/file/d/1JN840kzQuWooMOaRhhV4qlSypNYOiKkE/view?usp=sharing)
 
 ---
 ## 3. Physical Memory Simulation
